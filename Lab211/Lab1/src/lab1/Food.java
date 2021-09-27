@@ -91,7 +91,7 @@ public class Food implements Serializable {
                 + "Weight: " + this.weight + "\n"
                 + "Type: " + this.type + "\n"
                 + "Place: " + this.place + "\n"
-                + "Expired date: " + this.expiredDate;
+                + "Expired date: " + this.expiredDate; 
     }
 
 }

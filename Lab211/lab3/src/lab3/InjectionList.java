@@ -16,10 +16,16 @@ import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 import java.util.ArrayList;
@@ -462,5 +468,52 @@ public class InjectionList extends ArrayList<Injection> {
             System.out.println("Read fail!!!");
         }
         
+    }
+    private void savePublicKey(PublicKey publicKey) {
+        try {
+            FileOutputStream fos = new FileOutputStream("public.txt");
+            fos.write(publicKey.getEncoded());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    private void savePrivateKey(PrivateKey privateKey) {
+        try {
+            FileOutputStream fos = new FileOutputStream("private.txt");
+            fos.write(privateKey.getEncoded());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public PublicKey readPublicKey() {
+        PublicKey key = null;
+        try {
+            File publicKeyFile = new File("public.txt");
+            byte[] publicKeyBytes = Files.readAllBytes(publicKeyFile.toPath());
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyBytes);
+            RSAPublicKey pubKey = (RSAPublicKey) keyFactory.generatePublic(publicKeySpec);
+            key = pubKey;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return key;
+    }
+
+    public PrivateKey readPrivateKey() {
+        PrivateKey key = null;
+        try {
+            File privateKeyFile = new File("private.txt");
+            byte[] privateKeyBytes = Files.readAllBytes(privateKeyFile.toPath());
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+            RSAPrivateKey pubKey = (RSAPrivateKey) keyFactory.generatePrivate(privateKeySpec);
+            key = pubKey;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return key;
     }
 }

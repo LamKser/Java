@@ -219,7 +219,6 @@ public class InjectionList extends ArrayList<Injection> {
                     for (int j = 0; j < this.size(); j++) {
                         if (this.get(j).getStudentID().equals(id)) {
                             System.out.println(this.get(j).toString() );
-                            System.out.println("Name: " + list.get(i).getStudentName());
                             check = false;
                         }
                     }

@@ -59,7 +59,6 @@ public class InjectionList extends ArrayList<Injection> {
         do {
             String injectionID = null;
             String studentID = null;
-            String studentName = null;
             String vaccineID = null;
             String firstPlace = null;
             LocalDate firstDate = null;
@@ -88,12 +87,6 @@ public class InjectionList extends ArrayList<Injection> {
                     System.out.println("Student ID does not exist!!!");
                 }
             } while (checkStudentID(studentID) || checkExistStudent(studentID));
-
-            for (int i = 0; i < studentList.size(); i++) {
-                if (studentList.get(i).getStudentID().equals(studentID)) {
-                    studentName = studentList.get(i).getStudentName();
-                }
-            }
 
             vaccineList.showVaccine();
             do {
